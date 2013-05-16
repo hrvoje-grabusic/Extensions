@@ -1,0 +1,1 @@
+It is a group of page plugins for showing how to do the member registering/authorization/forgotpassword etc. 

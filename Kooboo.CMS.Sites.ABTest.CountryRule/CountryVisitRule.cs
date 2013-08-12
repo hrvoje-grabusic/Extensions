@@ -65,5 +65,11 @@ namespace Kooboo.CMS.Sites.ABTest.CountryRule
             get { return "return this.CountryCode();"; }
             set { }
         }
+
+
+        public string RuleTypeDisplayName
+        {
+            get { return "Visitor country"; }
+        }
     }
 }

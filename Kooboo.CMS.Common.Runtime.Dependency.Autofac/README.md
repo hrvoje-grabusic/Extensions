@@ -1,0 +1,2 @@
+The IoC container is replaceable in Kooboo CMS 4. Kooboo CMS 4 use Ninject as default IoC container framework. 
+But it is easy to create your owner IoC adapter for Kooboo CMS4. This project is Autofac adapter for Kooboo CMS. If you perfer to use Autofac, please copy Kooboo.CMS.Common.Runtime.Dependency.Autofac.dll into bin folder of Kooboo CMS, delete the Kooboo.CMS.Common.Runtime.Dependency.Ninject.dll from it.

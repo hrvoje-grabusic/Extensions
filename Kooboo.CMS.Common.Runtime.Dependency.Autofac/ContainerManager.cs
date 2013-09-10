@@ -20,13 +20,122 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
     /// </summary>
     public class ContainerManager : IContainerManager
     {
+        private class ContainerWrapper : IContainer
+        {
+            IContainer _container;
+            public ContainerWrapper(IContainer container, IEnumerable<IResolvingObserver> observers)
+            {
+                this._container = container;
+                this._resolvingObjservers = observers.OrderBy(it => it.Order).ToList();
+            }
+            #region AddResolvingObserver
+            private IList<IResolvingObserver> _resolvingObjservers = new List<IResolvingObserver>();
+
+            private object OnResolved(object resolvedObject)
+            {
+                if (_resolvingObjservers.Count > 0)
+                {
+                    foreach (var item in _resolvingObjservers)
+                    {
+                        resolvedObject = item.OnResolved(resolvedObject);
+                    }
+                }
+                return resolvedObject;
+            }
+            #endregion
+
+            #region IContainer
+            public ILifetimeScope BeginLifetimeScope(object tag, Action<ContainerBuilder> configurationAction)
+            {
+                return _container.BeginLifetimeScope(tag, configurationAction);
+            }
+
+            public ILifetimeScope BeginLifetimeScope(Action<ContainerBuilder> configurationAction)
+            {
+                return _container.BeginLifetimeScope(configurationAction);
+            }
+
+            public ILifetimeScope BeginLifetimeScope(object tag)
+            {
+                return _container.BeginLifetimeScope(tag);
+            }
+
+            public ILifetimeScope BeginLifetimeScope()
+            {
+                return _container.BeginLifetimeScope();
+            }
+
+            public event EventHandler<global::Autofac.Core.Lifetime.LifetimeScopeBeginningEventArgs> ChildLifetimeScopeBeginning
+            {
+                add
+                {
+                    _container.ChildLifetimeScopeBeginning += value;
+                }
+                remove
+                {
+                    _container.ChildLifetimeScopeBeginning -= value;
+                }
+            }
+
+            public event EventHandler<global::Autofac.Core.Lifetime.LifetimeScopeEndingEventArgs> CurrentScopeEnding
+            {
+                add
+                {
+                    _container.CurrentScopeEnding += value;
+                }
+                remove
+                {
+                    _container.CurrentScopeEnding -= value;
+                }
+            }
+
+            public global::Autofac.Core.IDisposer Disposer
+            {
+                get { return _container.Disposer; }
+            }
+
+            public event EventHandler<global::Autofac.Core.Resolving.ResolveOperationBeginningEventArgs> ResolveOperationBeginning
+            {
+                add
+                {
+                    _container.ResolveOperationBeginning += value;
+                }
+                remove
+                {
+                    _container.ResolveOperationBeginning -= value;
+                }
+            }
+
+            public object Tag
+            {
+                get { return _container.Tag; }
+            }
+
+            public global::Autofac.Core.IComponentRegistry ComponentRegistry
+            {
+                get { return _container.ComponentRegistry; }
+            }
+
+            public object ResolveComponent(global::Autofac.Core.IComponentRegistration registration, IEnumerable<global::Autofac.Core.Parameter> parameters)
+            {
+                var o = _container.ResolveComponent(registration, parameters);
+                return OnResolved(o);
+            }
+
+            public void Dispose()
+            {
+                _container.Dispose();
+            }
+            #endregion
+        }
         #region .ctor
+        private IList<IResolvingObserver> _resolvingObjservers = new List<IResolvingObserver>();
         private ContainerBuilder _builder;
-        private IContainer _container;
+        private ContainerWrapper _container;
 
         public ContainerManager()
         {
-            _builder = new ContainerBuilder();            
+            _builder = new ContainerBuilder();
         }
 
         /// <summary>
@@ -50,7 +159,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
                 if (_container == null)
                 {
                     _builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
-                    _container = _builder.Build();
+                    _container = new ContainerWrapper(_builder.Build(), _resolvingObjservers);
                 }
                 return _container;
             }
@@ -81,7 +190,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         /// <typeparam name="TService">The type of the service.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="lifeStyle">The life style.</param>
-        public virtual void AddComponent<TService>(string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Singleton)
+        public virtual void AddComponent<TService>(string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Transient)
         {
             AddComponent<TService, TService>(key, lifeStyle);
         }
@@ -92,7 +201,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         /// <param name="service">The service.</param>
         /// <param name="key">The key.</param>
         /// <param name="lifeStyle">The life style.</param>
-        public virtual void AddComponent(Type service, string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Singleton)
+        public virtual void AddComponent(Type service, string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Transient)
         {
             AddComponent(service, service, key, lifeStyle);
         }
@@ -104,28 +213,31 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         /// <typeparam name="TImplementation">The type of the implementation.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="lifeStyle">The life style.</param>
-        public virtual void AddComponent<TService, TImplementation>(string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Singleton)
+        public virtual void AddComponent<TService, TImplementation>(string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Transient)
         {
             AddComponent(typeof(TService), typeof(TImplementation), key, lifeStyle);
         }
 
-        public virtual void AddComponent(Type service, Type implementation, string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Singleton)
+        public virtual void AddComponent(Type service, Type implementation, string key = "", ComponentLifeStyle lifeStyle = ComponentLifeStyle.Transient, params Parameter[] parameters)
         {
-            var rb = _builder.RegisterType(implementation).As(service);
-            if (!string.IsNullOrEmpty(key))
-                rb.Named(key, service);
-            switch (lifeStyle)
+            if (service.IsGenericTypeDefinition)
             {
-                case ComponentLifeStyle.Singleton:
-                    rb.SingleInstance();
-                    break;
-                case ComponentLifeStyle.InRequestScope:
-                    rb.InstancePerMatchingLifetimeScope("httpRequest");
-                    break;
-                case ComponentLifeStyle.Transient:
-                default:
-                    rb.InstancePerDependency();
-                    break;
+                var rb = _builder.RegisterGeneric(implementation).As(service);
+                rb = rb.WithParamterEx(parameters);
+                if (!string.IsNullOrEmpty(key))
+                    rb = rb.Named(key, service);
+                rb = rb.LifeStyle(lifeStyle);
+
+            }
+            else
+            {
+                var rb = _builder.RegisterType(implementation).As(service);
+                rb = rb.As(service);
+                rb = rb.WithParamterEx(parameters);
+
+                if (!string.IsNullOrEmpty(key))
+                    rb = rb.Named(key, service);
+                rb = rb.LifeStyle(lifeStyle);
             }
         }
 
@@ -145,27 +257,38 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         }
         #endregion
 
+        #region ConvertParameters
+        private static global::Autofac.Core.Parameter[] ConvertParameters(Parameter[] parameters)
+        {
+            if (parameters == null)
+            {
+                return null;
+            }
+            return parameters.Select(it => new NamedParameter(it.Name, it.ValueCallback())).ToArray();
+        }
+        #endregion
+
         #region Resolve
-        public virtual T Resolve<T>(string key = "") where T : class
+        public virtual T Resolve<T>(string key = "", params Parameter[] parameters) where T : class
         {
             if (string.IsNullOrEmpty(key))
             {
                 if (WorkUnitScope != null && WorkUnitScope.IsRegistered<T>())
                     return WorkUnitScope.Resolve<T>();
-                return Container.Resolve<T>();
+                return Container.Resolve<T>(ConvertParameters(parameters));
             }
-            return Container.ResolveNamed<T>(key);
+            return Container.ResolveNamed<T>(key, ConvertParameters(parameters));
         }
 
-        public virtual object Resolve(Type type, string key = "")
+        public virtual object Resolve(Type type, string key = "", params Parameter[] parameters)
         {
             if (string.IsNullOrEmpty(key))
             {
                 if (WorkUnitScope != null && WorkUnitScope.IsRegistered(type))
-                    return WorkUnitScope.Resolve(type);
-                return Container.Resolve(type);
+                    return WorkUnitScope.Resolve(type, ConvertParameters(parameters));
+                return Container.Resolve(type, ConvertParameters(parameters));
             }
-            return Container.ResolveNamed(key, type);
+            return Container.ResolveNamed(key, type, ConvertParameters(parameters));
         }
         #endregion
 
@@ -186,13 +309,13 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         #endregion
 
         #region TryResolve
-        public virtual T TryResolve<T>(string key = "")
+        public virtual T TryResolve<T>(string key = "", params Parameter[] parameters)
         {
             if (string.IsNullOrEmpty(key))
             {
                 T obj = default(T);
                 if (WorkUnitScope != null && WorkUnitScope.IsRegistered<T>())
-                    obj = WorkUnitScope.Resolve<T>();
+                    obj = WorkUnitScope.Resolve<T>(ConvertParameters(parameters));
                 else
                     Container.TryResolve<T>(out obj);
                 return obj;
@@ -211,7 +334,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             }
         }
 
-        public virtual object TryResolve(Type type, string key = "")
+        public virtual object TryResolve(Type type, string key = "", params Parameter[] parameters)
         {
             object obj = null;
             if (string.IsNullOrEmpty(key))
@@ -266,6 +389,13 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             }
 
             this._container = null;
+        }
+        #endregion
+
+        #region AddResolvingObserver
+        public void AddResolvingObserver(IResolvingObserver observer)
+        {
+            _resolvingObjservers.Add(observer);
         }
         #endregion
     }

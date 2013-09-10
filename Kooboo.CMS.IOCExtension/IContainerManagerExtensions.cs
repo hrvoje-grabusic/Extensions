@@ -30,8 +30,8 @@ namespace Kooboo.CMS.IOCExtension
             var compEles = root.Element("components").Elements("component");
             foreach (var ele in compEles)
             {
-                var serviceType = Type.GetType(ele.Attribute("type").Value);
-                var interfaceType = Type.GetType(ele.Attribute("service").Value);
+                var serviceType = GetTypeByFullName(ele.Attribute("type").Value);
+                var interfaceType = GetTypeByFullName(ele.Attribute("service").Value);
                 ComponentLifeStyle scope = ComponentLifeStyle.Transient;
                 if (ele.Attribute("scope") != null)
                 {
@@ -103,7 +103,7 @@ namespace Kooboo.CMS.IOCExtension
             }
         }
 
-        private static object ConvertTo(Type type, string value)
+        public static object ConvertTo(Type type, string value)
         {
             if (type.IsEnum)
             {
@@ -146,5 +146,74 @@ namespace Kooboo.CMS.IOCExtension
 
             throw new NotSupportedException(string.Format("Cannot convert {0} to type {1}", value, type.FullName));
         }
+
+        public static Type GetTypeByFullName(this string typeName)
+        {
+            int gidx = typeName.IndexOf('`');
+            if (gidx < 0)
+                return Type.GetType(typeName);
+
+            int lidx = typeName.IndexOf('[');
+            if (lidx <= 0)
+                return Type.GetType(typeName);
+
+            int ridx = typeName.LastIndexOf(']');
+            if (ridx <= lidx)
+                throw new Exception(string.Format("Invalid type name:{0}", typeName));
+
+            var genericDefTypeName = typeName.Substring(0, lidx);
+            if (ridx < typeName.Length - 1)
+                genericDefTypeName += typeName.Substring(ridx + 1);
+
+            var argsCount = Convert.ToInt32(genericDefTypeName.Substring(gidx + 1, lidx - gidx - 1));
+            var genericDefType = Type.GetType(genericDefTypeName);
+            var argTypesName = typeName.Substring(lidx + 1, ridx - lidx - 1);
+            Stack<char> lbrakets = new Stack<char>();
+            List<string> argTypesNames = new List<string>();
+            StringBuilder argTypeName = new StringBuilder();
+            foreach (var c in argTypesName)
+            {
+                if (c == '[')
+                {
+                    lbrakets.Push(c);
+                    if (lbrakets.Count > 1)
+                    {
+                        argTypeName.Append(c);
+                    }
+                }
+                else if (c == ']')
+                {
+                    lbrakets.Pop();
+                    if (lbrakets.Count > 0)
+                    {
+                        argTypeName.Append(c);
+                    }
+                    else
+                    {
+                        argTypesNames.Add(argTypeName.ToString());
+                        argTypeName.Clear();
+                    }
+                }
+                else if (c == ',')
+                {
+                    if (lbrakets.Count > 0)
+                    {
+                        argTypeName.Append(c);
+                    }
+                }
+                else
+                {
+                    argTypeName.Append(c);
+                }
+            }
+            if (argTypesNames.Count != argsCount)
+                throw new Exception(string.Format("type name {0} argment types count doesn't equals to {1}", typeName, argsCount));
+
+            Type[] argTypes = argTypesNames.Select(o => o.GetTypeByFullName()).ToArray();
+
+            var genericType = genericDefType.MakeGenericType(argTypes);
+            return genericType;
+        }
+
     }
 }

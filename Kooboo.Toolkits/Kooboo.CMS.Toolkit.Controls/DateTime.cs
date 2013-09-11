@@ -16,6 +16,15 @@ namespace Kooboo.CMS.Toolkit.Controls
             get { return "text"; }
         }
 
+        public override string DataType
+        {
+            get
+            {
+                return "DateTime";
+            }
+        }
+
+
         private string _name;
         public override string Name
         {

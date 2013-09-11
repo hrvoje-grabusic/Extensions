@@ -75,13 +75,13 @@
     <Compile Include="ToolkitControlsArea.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Kooboo.CMS.Toolkit.Controls.js" />
+    <EmbeddedResource Include="Resources\Kooboo.CMS.Toolkit.Controls.min.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\jquery.jCombo.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\DateTimePicker.css" />
+    <EmbeddedResource Include="Resources\DateTimePicker.min.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

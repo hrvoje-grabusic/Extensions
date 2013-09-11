@@ -66,7 +66,6 @@ namespace Kooboo.CMS.Toolkit.Controls
         {
             var sb = new StringBuilder();
             sb.AppendFormat("<div id='{0}_Container' class='mediafile'>", column.Name);
-            //string input = base.RenderInput(column);
             var input = @"<input id=""{0}"" name=""{0}"" type=""{1}"" value=""@(Model.{0} ?? """")"" data-bind=""value: fieldValue""/>";
             const string script = "<script src=\"@Kooboo.CMS.Toolkit.Controls.ControlsScript.GetWebResourceUrl()\" type=\"text/javascript\" ></script>";
             string options = @"{

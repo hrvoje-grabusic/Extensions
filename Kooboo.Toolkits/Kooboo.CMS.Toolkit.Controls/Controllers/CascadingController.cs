@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Kooboo.CMS.Content.Query;
 using Kooboo.CMS.Content.Models;
 using Kooboo.CMS.Content.Query.Expressions;
+using Kooboo.Web.Script.Serialization;
 
 namespace Kooboo.CMS.Toolkit.Controls.Controllers
 {
@@ -25,8 +26,9 @@ namespace Kooboo.CMS.Toolkit.Controls.Controllers
             {
                 contentQuery = textFolder.CreateQuery().WhereEquals("ParentFolder", parentFolder).WhereEquals("ParentUUID", parentUUID);
             }
-            var data = contentQuery.ToArray().Select(it => new[] { it["UUID"].ToString(), it.GetSummary() }).ToArray();
+            var data = contentQuery.ToDictionary(it => it.UUID, it => it.GetSummary());
             return Json(data, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

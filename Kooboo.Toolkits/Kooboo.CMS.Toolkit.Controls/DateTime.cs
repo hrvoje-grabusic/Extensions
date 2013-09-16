@@ -76,13 +76,17 @@ namespace Kooboo.CMS.Toolkit.Controls
         {
             var sb = new StringBuilder();
             var input = string.Format("<input id=\"{0}\" name=\"{0}\" readonly=\"readonly\" type=\"{1}\" value=\"@(Model.{0} ==null ? \"\" : Model.{0}.ToLocalTime().ToString())\" {2}/>", column.Name, this.Type, ValidationExtensions.GetUnobtrusiveValidationAttributeString(column));
-            sb.Append(input);
+           
+            sb.Append(@"@if ((bool?)ViewContext.Controller.ViewData[""WebResourceUrl.Rendered""] != true)
+            {
+                ViewContext.Controller.ViewData[""WebResourceUrl.Rendered""] = true;");
             const string script = @"
                 <script src=""@Kooboo.CMS.Toolkit.Controls.ControlsScript.GetWebResourceUrl()"" type=""text/javascript"" ></script>";
             const string css = @"
                 <link href=""@Kooboo.CMS.Toolkit.Controls.ControlsScript.GetDatetimeResourceUrl()"" type=""text/css"" rel=""stylesheet"" />";
             sb.Append(css);
             sb.Append(script);
+            sb.Append("\t\t\t}");
             var func = String.Format(@"
                 <script type='text/javascript'>
                     $(function() {{
@@ -93,6 +97,7 @@ namespace Kooboo.CMS.Toolkit.Controls
                     }});
                 </script>", column.Name);
             sb.Append(func);
+            sb.Append(input);
             return sb.ToString();
         }
     }

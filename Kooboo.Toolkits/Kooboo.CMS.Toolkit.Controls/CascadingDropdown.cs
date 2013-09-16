@@ -20,6 +20,7 @@ namespace Kooboo.CMS.Toolkit.Controls
         {
             get { return "CascadingDropdown"; }
         }
+
         public override string Render(ISchema schema, IColumn column)
         {
             string html = string.Format(EditorTemplate, column.Name,
@@ -31,8 +32,12 @@ namespace Kooboo.CMS.Toolkit.Controls
 
         protected string RenderInput(ISchema schema, IColumn column)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<script src=\"@Kooboo.CMS.Toolkit.Controls.ControlsScript.GetJComboResourceUrl()\" type=\"text/javascript\" ></script>");
+            var sb = new StringBuilder();
+            sb.Append(@"@if ((bool?)ViewContext.Controller.ViewData[""JComboResourceUrl.Rendered""] != true)
+            {
+                ViewContext.Controller.ViewData[""JComboResourceUrl.Rendered""] = true;");
+            sb.Append("\n\t\t\t\t<script src=\"@Kooboo.CMS.Toolkit.Controls.ControlsScript.GetJComboResourceUrl()\" type=\"text/javascript\" ></script>\n");
+            sb.Append("\t\t\t}");
             var id = column.Name;
             var parent = "";
             if (column.CustomSettings != null && column.CustomSettings.ContainsKey("Parent"))
@@ -44,7 +49,7 @@ namespace Kooboo.CMS.Toolkit.Controls
             {
                 folder = column.CustomSettings["Folder"];
             }
-            var parentColumn = schema.Columns.Where(it => it.Name.EqualsOrNullEmpty(parent, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            var parentColumn = schema.Columns.FirstOrDefault(it => it.Name.EqualsOrNullEmpty(parent, StringComparison.OrdinalIgnoreCase));
             string script = "";
             if (parentColumn != null)
             {
@@ -53,19 +58,20 @@ namespace Kooboo.CMS.Toolkit.Controls
                 {
                     parentFolder = parentColumn.CustomSettings["Folder"];
                 }
-                script = string.Format(@"$(""#{0}"").jCombo(""@Html.Raw(Url.Action(""Index"",""Cascading"",new {{repositoryName = Request.RequestContext.AllRouteValues()[""repositoryName""],
-                                                            Area=""ToolkitControls"",folder=""{1}"",parentFolder=""{2}""}}))&parentUUID="",
-                                                            {{parent:""#{3}"",selected_value:""@Model.{0}"",parent_value:""@Model.{3}"",initial_text:""{4}""}});"
+                script = string.Format(@"$(""#{0}"").jCombo(""@Html.Raw(Url.Action(""Index"",""Cascading"",new {{repositoryName = Request.RequestContext.AllRouteValues()[""repositoryName""],Area=""ToolkitControls"",folder=""{1}"",parentFolder=""{2}""}}))&parentUUID="",{{dataType:""json"",parent:""#{3}"",selected_value:""@Model.{0}"",parent_value:""@Model.{3}"",initial_text:""{4}""}});"
                     , id, folder, parentFolder, parent, column.DefaultValue);
             }
             else
             {
-                script = string.Format(@"$(""#{0}"").jCombo(""@Html.Raw(Url.Action(""Index"",""Cascading"",new {{repositoryName = Request.RequestContext.AllRouteValues()[""repositoryName""],
-                                        Area=""ToolkitControls"",folder=""{1}""}}))"",{{selected_value:""@Model.{0}"",initial_text:""{2}""}});", id, folder, column.DefaultValue);
+                script = string.Format(@"$(""#{0}"").jCombo(""@Html.Raw(Url.Action(""Index"",""Cascading"",new {{repositoryName = Request.RequestContext.AllRouteValues()[""repositoryName""],Area=""ToolkitControls"",folder=""{1}""}}))"",{{dataType:""json"",selected_value:""@Model.{0}"",initial_text:""{2}""}});", id, folder, column.DefaultValue);
             }
             sb.AppendFormat(@"
             <select name=""{0}"" id=""{1}""></select>
-                <script language=""javascript"">$(function(){{{2}}})</script>"
+                <script type=""text/javascript"">
+                    $(function(){{
+                        {2}
+                    }});
+                </script>"
                  , column.Name, id, script);
 
             return sb.ToString();

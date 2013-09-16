@@ -18,7 +18,7 @@ namespace Kooboo.CMS.Toolkit.Controls
             ControlHelper.RegisterControl(new MediaPdf());
             //ControlHelper.RegisterControl(new MediaFile());
             //ControlHelper.RegisterControl(new MediaFiles());
-            //ControlHelper.RegisterControl(new CascadingDropdown());
+            ControlHelper.RegisterControl(new CascadingDropdown());
         }
     }
 }

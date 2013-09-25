@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Text.RegularExpressions;
 using Kooboo.CMS.Content.Models;
+using Kooboo.CMS.Sites.Models;
 
 namespace Kooboo.CMS.Toolkit
 {
@@ -213,20 +214,101 @@ namespace Kooboo.CMS.Toolkit
 
         public static string GetImageContentType(this string imagePath)
         {
-            string fileExtension = Path.GetExtension(imagePath).Substring(1);
-
-            string contentType;
-            switch (fileExtension.ToLower())
+            string contentType = String.Empty;
+            if (!String.IsNullOrWhiteSpace(imagePath))
             {
-                case "gif":
-                    contentType = "image/gif";
-                    break;
-                default:
-                    contentType = "image/jpeg";
-                    break;
+                string fileExtension = Path.GetExtension(imagePath).Substring(1);
+                switch (fileExtension.ToLower())
+                {
+                    case "gif":
+                        contentType = "image/gif";
+                        break;
+                    default:
+                        contentType = "image/jpeg";
+                        break;
+                }
             }
 
             return contentType;
         }
+
+        #region Label Extensions
+
+        [Obsolete]
+        public static string EncodedLabel(this string source, string key, string category = "", Site site = null)
+        {
+            if (site == null) { site = Site.Current; }
+
+            var labelHtmlStr = CMS.Sites.Globalization.SiteLabel.RawLabel(source, key, category, site);
+
+            var label = labelHtmlStr.ToString();
+            // replace \' ===> '
+            label = label.Replace("\\'", "'");
+            // parse encoded to org 
+            label = label.HtmlDecode();
+
+            return label.HtmlEncode();
+        }
+
+        static string JavascriptStringEncode(this string source, char? quotes = '\'')
+        {
+            var str = source;
+            if (!string.IsNullOrEmpty(str))
+            {
+                // replace newline with whitespace
+                str = str.Replace("\r", "");
+                str = str.Replace("\n", " ");
+                // wrap slash
+                str = str.Replace("\\", "\\\\");
+                // wrap quotes
+                if (quotes == '\'')
+                {
+                    str = str.Replace("'", "\\'");
+                }
+                else if (quotes == '"')
+                {
+                    str = str.Replace("\"", "\\\"");
+                }
+            }
+            return str;
+        }
+
+        public static IHtmlString AttrLabel(this string source, string key, string category = "", Site site = null)
+        {
+            var rawLabel = CMS.Sites.Globalization.SiteLabel.RawLabel(source, key, category, site ?? Site.Current);
+            var labelStr = rawLabel.ToHtmlString();
+            // attr encode
+            labelStr = AttributeEncode(labelStr);
+            // ret
+            return new HtmlString(labelStr);
+        }
+
+        public static IHtmlString JsLabel(this string source, string key, string category = "", string jsQuotes = "'", Site site = null)
+        {
+            var rawLabel = CMS.Sites.Globalization.SiteLabel.RawLabel(source, key, category, site ?? Site.Current);
+            var labelStr = rawLabel.ToHtmlString();
+            // js encode
+            char? quotes = null;
+            if (!string.IsNullOrEmpty(jsQuotes)) { quotes = jsQuotes[0]; }
+            labelStr = JavascriptStringEncode(labelStr, quotes);
+            // ret
+            return new HtmlString(labelStr);
+        }
+
+        public static IHtmlString JsAttrLabel(this string source, string key, string category = "", string jsQuotes = "'", Site site = null)
+        {
+            var rawLabel = CMS.Sites.Globalization.SiteLabel.RawLabel(source, key, category, site ?? Site.Current);
+            var labelStr = rawLabel.ToHtmlString();
+            // js encode
+            char? quotes = null;
+            if (!string.IsNullOrEmpty(jsQuotes)) { quotes = jsQuotes[0]; }
+            labelStr = JavascriptStringEncode(labelStr, quotes);
+            // attr encode
+            labelStr = AttributeEncode(labelStr);
+            // ret
+            return new HtmlString(labelStr);
+        }
+
+        #endregion
     }
 }

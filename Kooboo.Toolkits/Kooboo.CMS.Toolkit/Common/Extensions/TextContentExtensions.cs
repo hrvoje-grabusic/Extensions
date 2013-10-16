@@ -20,7 +20,7 @@ namespace Kooboo.CMS.Toolkit
         /// <summary>
         /// create express like: ((a=1) or (a=2) or (b=3))
         /// </summary>
-        public static IContentQuery<TextContent> WhereOrs(this IContentQuery<TextContent> textContents, Dictionary<string,object> args)
+        public static IContentQuery<TextContent> WhereOrs(this IContentQuery<TextContent> textContents, Dictionary<string, object> args)
         {
             var textContent = textContents.FirstOrDefault();
             Repository repository = textContent == null ? Repository.Current : new Repository(textContent.Repository);
@@ -44,7 +44,7 @@ namespace Kooboo.CMS.Toolkit
         {
             var textContent = textContents.FirstOrDefault();
             Repository repository = null;
-            if(textContent != null)
+            if (textContent != null)
             {
                 repository = new Repository(textContent.Repository);
             }
@@ -67,7 +67,7 @@ namespace Kooboo.CMS.Toolkit
         public static IContentQuery<TextContent> QueryCategories(this TextContent textContent, string categoryFolderName)
         {
             Repository repository = null;
-            if(textContent != null)
+            if (textContent != null)
             {
                 repository = new Repository(textContent.Repository);
             }
@@ -94,24 +94,53 @@ namespace Kooboo.CMS.Toolkit
             return textContents.WhereEquals(SystemFieldNames.Published, true);
         }
 
+        [Obsolete("Not support in Kooboo 4,this method is same with  public static IContentQuery<TextContent> DefaultOrder(this IContentQuery<TextContent> contentQuery)")]
         public static IContentQuery<TextContent> DefaultOrder(this IContentQuery<TextContent> textContents, TextFolder textFolder)
         {
-            string orderField = SystemFieldNames.UtcCreationDate;
-            OrderDirection orderDirection = OrderDirection.Descending;
-            if(textFolder.OrderSetting != null)
+            if (textContents is TextContentQueryBase)
             {
-                orderField = textFolder.OrderSetting.FieldName;
-                orderDirection = textFolder.OrderSetting.Direction;
-            }
+                string orderField = SystemFieldNames.UtcCreationDate;
+                OrderDirection orderDirection = OrderDirection.Descending;
 
-            if(orderDirection == OrderDirection.Ascending)
-            {
-                return textContents.OrderBy(orderField);
+                if (textFolder.Sortable.HasValue && textFolder.Sortable.Value)
+                {
+                    orderField = "Sequence";
+                    orderDirection = OrderDirection.Descending;
+                }
+
+                if (orderDirection == OrderDirection.Ascending)
+                {
+                    return textContents.OrderBy(orderField);
+                }
+                else
+                {
+                    return textContents.OrderByDescending(orderField);
+                }
             }
-            else
+            return textContents;
+        }
+
+        public static IContentQuery<TextContent> DefaultOrder(this IContentQuery<TextContent> textContents, string orderField, OrderDirection orderDirection = OrderDirection.Descending)
+        {
+            if (textContents is TextContentQueryBase)
             {
-                return textContents.OrderByDescending(orderField);
+                var textFolder = ((TextContentQueryBase)textContents).Folder.AsActual();
+                if (textFolder.Sortable.HasValue && textFolder.Sortable.Value)
+                {
+                    orderField = "Sequence";
+                    orderDirection = OrderDirection.Descending;
+                }
+
+                if (orderDirection == OrderDirection.Ascending)
+                {
+                    return textContents.OrderBy(orderField);
+                }
+                else
+                {
+                    return textContents.OrderByDescending(orderField);
+                }
             }
+            return textContents;
         }
 
         #region Date
@@ -237,9 +266,9 @@ namespace Kooboo.CMS.Toolkit
         public static NameValueCollection ToNameValueCollection(this TextContent textContent)
         {
             NameValueCollection collection = new NameValueCollection();
-            foreach(var item in textContent)
+            foreach (var item in textContent)
             {
-                if(item.Value != null)
+                if (item.Value != null)
                 {
                     collection.Add(item.Key, item.Value.ToString());
                 }
@@ -258,7 +287,7 @@ namespace Kooboo.CMS.Toolkit
 
         public static TEntity MapTo<TEntity>(this TextContent textContent)
         {
-            if(textContent != null)
+            if (textContent != null)
             {
                 return (TEntity)Activator.CreateInstance(typeof(TEntity), textContent);
             }
@@ -273,7 +302,7 @@ namespace Kooboo.CMS.Toolkit
 
         public static TEntity MapTo<TEntity>(this ContentBase content)
         {
-            if(content != null)
+            if (content != null)
             {
                 return (TEntity)Activator.CreateInstance(typeof(TEntity), content);
             }

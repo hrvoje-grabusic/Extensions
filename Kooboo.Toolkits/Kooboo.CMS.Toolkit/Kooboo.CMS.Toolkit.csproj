@@ -97,6 +97,7 @@
     <Compile Include="Common\Extensions\PageRequestContextExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\Extensions\CheckboxListExtensions.cs" />
     <Compile Include="Common\Extensions\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Common\Extensions\SiteExtensions.cs" />
     <Compile Include="Common\Extensions\StringExtensions.cs" />

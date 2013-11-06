@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Kooboo.CMS.Toolkit")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Yardi Technology Limited")]
 [assembly: AssemblyProduct("Kooboo.CMS.Toolkit")]
 [assembly: AssemblyCopyright("Copyright ©Kooboo  2013")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.1.0.528")]
-[assembly: AssemblyFileVersion("4.1.0.528")]
+[assembly: AssemblyVersion("4.2.10.18")]
+[assembly: AssemblyFileVersion("4.2.10.18")]

@@ -46,7 +46,7 @@ namespace Kooboo.CMS.Toolkit
                     return String.Format("{0}/{1}", host, relativeUrl.TrimStart('~', '/'));
                 }
             }
-            else if(relativeUrl.StartsWith("http://") && forceSSL)
+            else if (relativeUrl.StartsWith("http://") && forceSSL)
             {
                 return relativeUrl.Replace("http://", "https://");
             }
@@ -76,10 +76,10 @@ namespace Kooboo.CMS.Toolkit
 
         public static string ToAbsoluteUrl(this HttpRequestBase request, string host, string relativeUrl, bool forceSSL)
         {
-            if(!relativeUrl.StartsWith("http://") &&
+            if (!relativeUrl.StartsWith("http://") &&
                 !relativeUrl.StartsWith("https://"))
             {
-                if(!host.StartsWith("http://") &&
+                if (!host.StartsWith("http://") &&
                     !host.StartsWith("https://"))
                 {
                     string scheme = forceSSL ? request.Url.Scheme.Replace("http", "https") : request.Url.Scheme;
@@ -94,6 +94,18 @@ namespace Kooboo.CMS.Toolkit
         }
 
         public static string GetUserIp(this HttpRequestBase request)
+        {
+            string ipList = request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (!string.IsNullOrEmpty(ipList))
+            {
+                return ipList.Split(',')[0];
+            }
+
+            return request.ServerVariables["REMOTE_ADDR"];
+        }
+
+        public static string GetUserIp(this HttpRequest request)
         {
             string ipList = request.ServerVariables["HTTP_X_FORWARDED_FOR"];
 

@@ -8,21 +8,10 @@
         };
 
         var options = $.extend(true, defaults, options);
-
         var $container = this;
         function isValid(url) {
             return options.validation.test(url);
         }
-        top.checkSelect = function (selectList) {
-            var flag = true;
-            $.each(selectList, function (ix, obj) {
-                return flag = isValid(obj.url);
-            });
-            if (!flag) {
-                top.info.show(options.validationErrorMessage, false);
-            }
-            return flag;
-        };
 
         function MediaFile_ViewModel(initValue) {
             var self = this;
@@ -70,6 +59,16 @@
                 popupOnTop: true,
                 width: 700,
                 height: 500,
+                valid: function (selectList) {
+                    var flag = true;
+                    $.each(selectList, function (ix, obj) {
+                        return flag = isValid(obj.url);
+                    });
+                    if (!flag) {
+                        top.info.show(options.validationErrorMessage, false);
+                    }
+                    return flag;
+                },
                 onclose: function () {
                     setTimeout(function () {
                         if ($.popContext.getCurrent() != null) {

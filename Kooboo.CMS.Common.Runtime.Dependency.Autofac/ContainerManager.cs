@@ -222,7 +222,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         {
             if (service.IsGenericTypeDefinition)
             {
-                var rb = _builder.RegisterGeneric(implementation).As(service);
+                var rb = _builder.RegisterGeneric(implementation).As(service).UsingConstructor(new ParameterlessConstructorSelector());
                 rb = rb.WithParamterEx(parameters);
                 if (!string.IsNullOrEmpty(key))
                     rb = rb.Named(key, service);
@@ -231,7 +231,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             }
             else
             {
-                var rb = _builder.RegisterType(implementation).As(service);
+                var rb = _builder.RegisterType(implementation).As(service).UsingConstructor(new ParameterlessConstructorSelector());
                 rb = rb.As(service);
                 rb = rb.WithParamterEx(parameters);
 

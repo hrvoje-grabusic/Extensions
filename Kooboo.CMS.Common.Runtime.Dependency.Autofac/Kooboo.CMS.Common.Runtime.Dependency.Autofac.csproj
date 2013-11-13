@@ -74,6 +74,7 @@
     <Compile Include="DependencyAttributeRegistrator.cs" />
     <Compile Include="AutfacEngine.cs" />
     <Compile Include="IRegistrationBuilderExtensions.cs" />
+    <Compile Include="ParameterlessConstructorSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

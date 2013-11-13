@@ -7,7 +7,6 @@
 // 
 #endregion
 using System.Reflection;
-//[assembly: AssemblyProduct("Kooboo.CMS.Toolkit")]
 [assembly: AssemblyCompany("Yardi Technology Limited")]
 [assembly: AssemblyCopyright("Copyright © Yari 2009-2013")]
 [assembly: AssemblyTrademark("")]

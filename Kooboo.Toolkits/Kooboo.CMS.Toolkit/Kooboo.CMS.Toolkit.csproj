@@ -82,6 +82,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+	<Compile Include="..\CMSAssemblyInfoGlobal.cs">
+      <Link>CMSAssemblyInfoGlobal.cs</Link>
+    </Compile>
     <Compile Include="Common\ContextBase.cs" />
     <Compile Include="Common\Extensions\FrontHtmlHelperExtensions.cs" />
     <Compile Include="Common\Extensions\DecimalExtensions.cs" />

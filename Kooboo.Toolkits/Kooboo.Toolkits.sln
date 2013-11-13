@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 13.00
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kooboo.CMS.Toolkit", "Kooboo.CMS.Toolkit\Kooboo.CMS.Toolkit.csproj", "{3BAE0F65-BEDF-4057-BAA8-CD479FD637A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kooboo.CMS.Toolkit.Controls", "Kooboo.CMS.Toolkit.Controls\Kooboo.CMS.Toolkit.Controls.csproj", "{85B550E8-C5DC-4E15-9974-DAEA0FB333FA}"

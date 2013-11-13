@@ -38,5 +38,20 @@ namespace Kooboo.CMS.Toolkit
         {
             return controllerContext.HtmlHelper().FrontHtml().RenderView(viewName, viewData).ToString();
         }
+
+        public static string RenderView(this ControllerContext controllerContext, string viewName, object model)
+        {
+            return controllerContext.HtmlHelper().FrontHtml().RenderView(viewName, model).ToString();
+        }
+
+        public static string RenderView(this ControllerContext controllerContext, string viewName, ViewDataDictionary viewData, object parameters)
+        {
+            return controllerContext.HtmlHelper().FrontHtml().RenderView(viewName, viewData, parameters).ToString();
+        }
+
+        public static string RenderView(this ControllerContext controllerContext, string viewName, ViewDataDictionary viewData, object parameters, bool executeDataRule)
+        {
+            return controllerContext.HtmlHelper().FrontHtml().RenderView(viewName, viewData, parameters, executeDataRule).ToString();
+        }
     }
 }

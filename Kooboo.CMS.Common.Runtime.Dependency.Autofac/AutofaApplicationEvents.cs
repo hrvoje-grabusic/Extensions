@@ -24,8 +24,16 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
                 if (cm != null)
                 {
                     cm.WorkUnitScope = cm.Container.BeginLifetimeScope("httpRequest");
+                    cm.WorkUnitScope.CurrentScopeEnding += WorkUnitScope_CurrentScopeEnding;
+
                 }
             }
+        }
+
+        void WorkUnitScope_CurrentScopeEnding(object sender, global::Autofac.Core.Lifetime.LifetimeScopeEndingEventArgs e)
+        {
+            if (HttpContext.Current != null)
+                HttpContext.Current.Items[typeof(ILifetimeScope)] = null;
         }
 
         public void Application_End(object sender, EventArgs e)
@@ -51,7 +59,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
 
         public void Application_Start(object sender, EventArgs e)
         {
-            
+
         }
 
         public void Init(System.Web.HttpApplication httpApplication)

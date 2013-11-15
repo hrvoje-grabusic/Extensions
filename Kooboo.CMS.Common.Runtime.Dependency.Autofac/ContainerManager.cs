@@ -20,16 +20,24 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
     /// </summary>
     public class ContainerManager : IContainerManager
     {
+        #region ContainerWrapper
         private class ContainerWrapper : IContainer
         {
+
             IContainer _container;
             public ContainerWrapper(IContainer container, IEnumerable<IResolvingObserver> observers)
             {
                 this._container = container;
-                this._resolvingObjservers = observers.OrderBy(it => it.Order).ToList();
+                this._resolvingObjservers.AddRange(observers);
             }
             #region AddResolvingObserver
-            private IList<IResolvingObserver> _resolvingObjservers = new List<IResolvingObserver>();
+
+            private List<IResolvingObserver> _resolvingObjservers = new List<IResolvingObserver>();
+            public void AddResolvingObserver(IResolvingObserver observer)
+            {
+                _resolvingObjservers.Add(observer);
+                _resolvingObjservers = _resolvingObjservers.OrderBy(it => it.Order).ToList();
+            }
 
             private object OnResolved(object resolvedObject)
             {
@@ -118,8 +126,14 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
 
             public object ResolveComponent(global::Autofac.Core.IComponentRegistration registration, IEnumerable<global::Autofac.Core.Parameter> parameters)
             {
+                registration.Activating += registration_Activating;
                 var o = _container.ResolveComponent(registration, parameters);
                 return OnResolved(o);
+            }
+
+            void registration_Activating(object sender, global::Autofac.Core.ActivatingEventArgs<object> e)
+            {
+                e.Instance=OnResolved(e.Instance);
             }
 
             public void Dispose()
@@ -128,8 +142,119 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             }
             #endregion
         }
+        #endregion
+
+        #region LifetimeScopeWrapper
+
+        private class LifetimeScopeWrapper : ILifetimeScope
+        {
+            public LifetimeScopeWrapper(ILifetimeScope lifetimeScope, IEnumerable<IResolvingObserver> observers)
+            {
+                this.lifetimeScope = lifetimeScope;
+                _resolvingObjservers.AddRange(observers);
+            }
+            private ILifetimeScope lifetimeScope;
+            private List<IResolvingObserver> _resolvingObjservers = new List<IResolvingObserver>();
+            private object OnResolved(object resolvedObject)
+            {
+                if (_resolvingObjservers.Count > 0)
+                {
+                    foreach (var item in _resolvingObjservers)
+                    {
+                        resolvedObject = item.OnResolved(resolvedObject);
+                    }
+                }
+                return resolvedObject;
+            }
+            public ILifetimeScope BeginLifetimeScope(object tag, Action<ContainerBuilder> configurationAction)
+            {
+                return this.lifetimeScope.BeginLifetimeScope(tag, configurationAction);
+            }
+
+            public ILifetimeScope BeginLifetimeScope(Action<ContainerBuilder> configurationAction)
+            {
+                return this.lifetimeScope.BeginLifetimeScope(configurationAction);
+            }
+
+            public ILifetimeScope BeginLifetimeScope(object tag)
+            {
+                return this.lifetimeScope.BeginLifetimeScope(tag);
+            }
+
+            public ILifetimeScope BeginLifetimeScope()
+            {
+                return this.lifetimeScope.BeginLifetimeScope();
+            }
+
+            public event EventHandler<global::Autofac.Core.Lifetime.LifetimeScopeBeginningEventArgs> ChildLifetimeScopeBeginning {
+                add
+                {
+                    this.lifetimeScope.ChildLifetimeScopeBeginning += value;
+                }
+                remove
+                {
+                    this.lifetimeScope.ChildLifetimeScopeBeginning -= value;
+                }
+            }
+
+            public event EventHandler<global::Autofac.Core.Lifetime.LifetimeScopeEndingEventArgs> CurrentScopeEnding {
+                add
+                {
+                    this.lifetimeScope.CurrentScopeEnding += value;
+                }
+                remove
+                {
+                    this.lifetimeScope.CurrentScopeEnding -= value;
+                }
+            }
+
+            public global::Autofac.Core.IDisposer Disposer
+            {
+                get { return this.lifetimeScope.Disposer; }
+            }
+
+            public event EventHandler<global::Autofac.Core.Resolving.ResolveOperationBeginningEventArgs> ResolveOperationBeginning
+            {
+                add
+                {
+                    this.lifetimeScope.ResolveOperationBeginning += value;
+                }
+                remove
+                {
+                    this.lifetimeScope.ResolveOperationBeginning -= value;
+                }
+            }
+
+            public object Tag
+            {
+                get { return this.lifetimeScope.Tag; }
+            }
+
+            public global::Autofac.Core.IComponentRegistry ComponentRegistry
+            {
+                get { return this.lifetimeScope.ComponentRegistry; }
+            }
+
+            public object ResolveComponent(global::Autofac.Core.IComponentRegistration registration, IEnumerable<global::Autofac.Core.Parameter> parameters)
+            {
+                registration.Activating += registration_Activating;
+                var o = this.lifetimeScope.ResolveComponent(registration, parameters);
+                return OnResolved(o);
+            }
+
+            void registration_Activating(object sender, global::Autofac.Core.ActivatingEventArgs<object> e)
+            {
+                e.Instance = OnResolved(e.Instance);
+            }
+
+            public void Dispose()
+            {
+                this.lifetimeScope.Dispose();
+            }
+        }
+        #endregion
         #region .ctor
-        private IList<IResolvingObserver> _resolvingObjservers = new List<IResolvingObserver>();
+
         private ContainerBuilder _builder;
         private ContainerWrapper _container;
 
@@ -176,7 +301,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             set
             {
                 if (HttpContext.Current != null)
-                    HttpContext.Current.Items[typeof(ILifetimeScope)] = value;
+                    HttpContext.Current.Items[typeof(ILifetimeScope)] = new LifetimeScopeWrapper(value, this._resolvingObjservers);
             }
         }
 
@@ -393,9 +518,14 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         #endregion
 
         #region AddResolvingObserver
+        private IList<IResolvingObserver> _resolvingObjservers = new List<IResolvingObserver>();
         public void AddResolvingObserver(IResolvingObserver observer)
         {
             _resolvingObjservers.Add(observer);
+            if (_container != null)
+            {
+                _container.AddResolvingObserver(observer);
+            }
         }
         #endregion
     }

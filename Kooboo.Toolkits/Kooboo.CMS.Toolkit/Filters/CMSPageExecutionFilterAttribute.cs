@@ -6,23 +6,29 @@ using System.Web.Mvc;
 using Kooboo.Web.Mvc;
 using Kooboo.CMS.Sites.View;
 
-namespace Kooboo.CMS.Toolkit.Filters {
+namespace Kooboo.CMS.Toolkit.Filters
+{
 
-    public class CMSPageExecutionFilterAttribute : ActionFilterAttribute {
+    public class CMSPageExecutionFilterAttribute : ActionFilterAttribute
+    {
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext) {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
             base.OnActionExecuting(filterContext);
             var controllerContext = filterContext.Controller.ControllerContext;
             //
             var siteName = controllerContext.RequestContext.GetRequestValue("siteName");
-            var site = new Kooboo.CMS.Sites.Models.Site(siteName);
+            var site = Kooboo.CMS.Sites.Services.ServiceFactory.SiteManager.GetSite(new List<string>() { siteName });
             Kooboo.CMS.Sites.Models.Site.Current = site;
             //
             var pageName = controllerContext.RequestContext.GetRequestValue("pageName");
             Kooboo.CMS.Sites.Models.Page page = null;
-            if (string.IsNullOrEmpty(pageName)) {
+            if (string.IsNullOrEmpty(pageName))
+            {
                 page = Kooboo.CMS.Sites.Services.ServiceFactory.PageManager.All(site, string.Empty).First();
-            } else {
+            }
+            else
+            {
                 page = new Kooboo.CMS.Sites.Models.Page(site, pageName).LastVersion();
             }
             //

@@ -224,7 +224,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             {
                 if (componentContext.IsRegisteredWithKey<T>(key))
                 {
-                    obj = WorkUnitScope.ResolveNamed<T>(key, ConvertParameters(parameters));
+                    obj = componentContext.ResolveNamed<T>(key, ConvertParameters(parameters));
                 }
 
             }
@@ -232,7 +232,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             {
                 if (componentContext.IsRegistered<T>())
                 {
-                    obj = WorkUnitScope.Resolve<T>(ConvertParameters(parameters));
+                    obj = componentContext.Resolve<T>(ConvertParameters(parameters));
                 }
             }
             return obj;
@@ -247,14 +247,14 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             {
                 if (componentContext.IsRegisteredWithKey(key, type))
                 {
-                    obj = WorkUnitScope.ResolveNamed(key, type, ConvertParameters(parameters));
+                    obj = componentContext.ResolveNamed(key, type, ConvertParameters(parameters));
                 }
             }
             else
             {
                 if (componentContext.IsRegistered(type))
                 {
-                    obj = WorkUnitScope.Resolve(type, ConvertParameters(parameters));
+                    obj = componentContext.Resolve(type, ConvertParameters(parameters));
                 }
             }
             return obj;

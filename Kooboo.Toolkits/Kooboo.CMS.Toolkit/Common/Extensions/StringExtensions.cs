@@ -209,6 +209,10 @@ namespace Kooboo.CMS.Toolkit
         /// <returns></returns>
         public static string WrapAjaxUrl(this string url)
         {
+            if (null == Site.Current || null == url)
+            {
+                return url ?? "";
+            }
             return Kooboo.Web.Url.UrlUtility.Combine("/" + Sites.Models.SiteHelper.PREFIX_FRONT_DEBUG_URL + Sites.Models.Site.Current.FullName, url);
         }
 

@@ -86,5 +86,5 @@ Call UpdateVersion("..\CMSAssemblyInfoGlobal.cs", version)
 
 Call UpdatePackageVersion("..\Publish\Release\Kooboo.CMS.Toolkit\Kooboo.CMS.Toolkit.nuspec", version)
 Call UpdatePackageVersion("..\Publish\Release\Kooboo.CMS.Toolkit.Controls\Kooboo.CMS.Toolkit.Controls.nuspec", version)
-
+Call UpdatePackageVersion("..\Publish\Release\Kooboo.Core\Kooboo.Core.nuspec", version)
 

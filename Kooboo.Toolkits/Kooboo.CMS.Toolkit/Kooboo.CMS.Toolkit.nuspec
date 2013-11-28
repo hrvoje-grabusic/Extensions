@@ -14,5 +14,8 @@
     <copyright />
     <language />
     <tags>Kooboo CMS Toolkit</tags>
+    <dependencies>
+        <dependency id="Kooboo.Core" version="4.2.1.1128" />
+    </dependencies>
   </metadata>
 </package>

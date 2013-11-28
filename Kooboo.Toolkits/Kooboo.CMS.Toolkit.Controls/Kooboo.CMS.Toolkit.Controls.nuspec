@@ -3,16 +3,19 @@
   <metadata>
     <id>Kooboo.CMS.Toolkit.Controls</id>
     <version>4.2.1.1113</version>
-    <title>Kooboo.CMS.Toolkit</title>
+    <title>Kooboo.CMS.Toolkit.Controls</title>
     <authors>Kooboo</authors>
     <owners>Yardi Technology limited</owners>
     <projectUrl>https://github.com/Kooboo/CMS_Extensions</projectUrl>
     <iconUrl>http://www.kooboo.com/favicon.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>The Kooboo CMS toolkit.</description>
+    <description>The Kooboo CMS toolkit Schema Controls.</description>
     <releaseNotes />
     <copyright />
     <language />
     <tags>Kooboo CMS Toolkit Schema Controls</tags>
+    <dependencies>
+        <dependency id="Kooboo.Core" version="4.2.1.1128" />
+    </dependencies>
   </metadata>
 </package>

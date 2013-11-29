@@ -12,6 +12,7 @@
         function isValid(url) {
             return options.validation.test(url);
         }
+        var hasValue = false;
 
         function MediaFile_ViewModel(initValue) {
             var self = this;
@@ -24,6 +25,7 @@
             var items = [];
             _.each(initValue.split('|'), function (item) {
                 if (item != '') {
+                    hasValue = true;
                     items.push({ Url: item, FileName: getFileName(item), isImage: isImage(item) });
                 }
             });
@@ -31,7 +33,7 @@
             self.data.sort();
             self.removeItem = function () {
                 self.data.remove(this);
-                mediaFileTemplate.find('a.add').show();
+                $container.find('a.add').show();
             };
             self.addItem = function (url, fileName) {
                 if (_.findWhere(self.data(), { Url: url }) == undefined) {
@@ -47,11 +49,12 @@
                 return urls.join('|');
             }, this);
         }
-        var mediaFileViewModel = new MediaFile_ViewModel(options.value);
-        var mediaFileTemplate = $container;
-        ko.applyBindings(mediaFileViewModel, mediaFileTemplate[0]);
 
-        mediaFileTemplate.find('a.add').click(function (e) {
+        var mediaFileViewModel = new MediaFile_ViewModel(options.value);
+
+        ko.applyBindings(mediaFileViewModel, $container[0]);
+
+        $container.find('a.add').click(function (e) {
             e.preventDefault();
             var $mediaLink = $(this);
 
@@ -91,6 +94,13 @@
                 }
             }).click();
         });
+
+        if (!options.allowMultipleFiles && hasValue) {
+            $container.find('a.add').hide();
+        }
+        else {
+            $container.find('a.add').show();
+        }
     };
 
 })(jQuery);

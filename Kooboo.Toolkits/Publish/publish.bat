@@ -3,7 +3,8 @@ md Release
 md Release\Kooboo.CMS.Toolkit\lib\
 md Release\Kooboo.CMS.Toolkit.Controls\lib\
 md Release\Kooboo.Core\lib\
-
+rd packages /Q /S
+md packages
 del *.log /Q /S
 
 copy "..\Kooboo.CMS.Toolkit\Kooboo.CMS.Toolkit.nuspec" "..\Publish\Release\Kooboo.CMS.Toolkit\Kooboo.CMS.Toolkit.nuspec"
@@ -43,4 +44,4 @@ nuget setApiKey 12487df2-6ae4-449f-a648-4237aba653b6
 nuget pack Release\Kooboo.Core\Kooboo.Core.nuspec
 nuget setApiKey 12487df2-6ae4-449f-a648-4237aba653b6
 
-move *.nupkg Release\
+move *.nupkg packages\

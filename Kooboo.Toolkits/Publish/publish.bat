@@ -3,7 +3,6 @@ md Release
 md Release\Kooboo.CMS.Toolkit\lib\
 md Release\Kooboo.CMS.Toolkit.Controls\lib\
 md Release\Kooboo.Core\lib\
-rd packages /Q /S
 md packages
 del *.log /Q /S
 

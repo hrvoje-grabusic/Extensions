@@ -108,13 +108,7 @@ namespace Kooboo.CMS.Toolkit
         {
             get
             {
-                if (FromIOS)
-                {
-                    var iosVersion = IOSVersionExpression.Match(UserAgent).Groups[1].ToString().AsInt();
-                    return iosVersion == 7;
-                }
-                return false;
-
+                return FromIOS && IOSVersionExpression.Match(UserAgent).Groups[1].Value.AsInt() == 7;
             }
         }
     }

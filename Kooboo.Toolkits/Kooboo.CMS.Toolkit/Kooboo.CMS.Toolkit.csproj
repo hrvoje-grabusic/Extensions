@@ -82,7 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-	<Compile Include="..\CMSAssemblyInfoGlobal.cs">
+    <Compile Include="..\CMSAssemblyInfoGlobal.cs">
       <Link>CMSAssemblyInfoGlobal.cs</Link>
     </Compile>
     <Compile Include="Common\ContextBase.cs" />
@@ -106,7 +106,6 @@
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Extensions\TextContentExtensions.cs" />
     <Compile Include="Common\SystemFieldNames.cs" />
-    <Compile Include="Common\FolderNames.cs" />
     <Compile Include="Common\FrontHtmlHelper.cs" />
     <Compile Include="Common\RecursionVisitor.cs" />
     <Compile Include="Common\TreeNode.cs" />

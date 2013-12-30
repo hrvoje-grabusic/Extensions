@@ -1,8 +1,8 @@
 [CMS_Extensions](https://github.com/Kooboo/CMS_Extensions) (Samples)
 ===========
 
-> ###Some best practice example extension projects.  
-###Both plugin and module examples are included.
+> **Some best practice example extension projects.**  
+> **Both plugin and module examples are included.**
 
 ## Contributing
 

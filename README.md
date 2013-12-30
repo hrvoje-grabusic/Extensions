@@ -1,8 +1,8 @@
 [CMS_Extensions](https://github.com/Kooboo/CMS_Extensions) (Samples)
 ===========
 
-> ##Some best practice example extension projects.  
-##Both plugin and module examples are included.
+> ###Some best practice example extension projects.  
+###Both plugin and module examples are included.
 
 ## Contributing
 
@@ -13,10 +13,13 @@ review the [guidelines for contributing](CONTRIBUTING.md).
 * [Feature requests](CONTRIBUTING.md#features)
 * [Pull requests](CONTRIBUTING.md#pull-requests)
 
-    ### Requirement:
+
+    **Requirement:**
     * Create a README.md to explain how to deploy the extension.
-    * Create a <ExtensionName>.md to document the extension to be included in the Wiki.
+    * Create an `ExtensionName`.md to document the extension to be included in the Wiki.
     * Follow the best practice examples here or go to the forum to get hints on how to create one. 
+    * Do not make changes to the root of the repository. Your pull request will get rejected and asked to fix.
+    * Do feel free to make the existing extensions even better or extend them with features in a new project folder.
 
 Note: You can always create your own repo and project extension or plugin in your own account and we will be glad to link it from this wiki.
 

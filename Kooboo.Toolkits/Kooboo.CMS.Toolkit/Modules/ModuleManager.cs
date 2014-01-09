@@ -24,10 +24,10 @@ namespace Kooboo.CMS.Toolkit.Modules
             ModuleInitializers.Exclude(moduleName, siteName);
         }
 
-        public override void Uninstall(string moduleName)
+        [Obsolete("Method Removed in Kooboo CMS 4.3+")]
+        public void Uninstall(string moduleName)
         {
             ModuleInitializers.UnInstall(moduleName);
-            base.Uninstall(moduleName);
         }
     }
 }

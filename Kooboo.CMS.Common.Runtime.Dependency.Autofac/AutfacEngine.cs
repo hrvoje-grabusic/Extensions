@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Autofac;
-using Autofac.Integration.Mvc;
+
 using Kooboo.CMS.Common.Runtime.Dependency;
 
 namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
@@ -71,8 +71,8 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             foreach (var dependencyRegistrar in drInstances)
                 dependencyRegistrar.Register(this.ContainerManager, this.TypeFinder);
 
-            // register controllers
-            ((ContainerManager)this.ContainerManager).Builder.RegisterControllers(this.TypeFinder.GetAssemblies().ToArray());
+            //// register controllers
+            //((ContainerManager)this.ContainerManager).Builder.RegisterControllers(this.TypeFinder.GetAssemblies().ToArray());
 
             //System.Web.Mvc.DependencyResolver.SetResolver(new AutofacDependencyResolver(((ContainerManager)this.ContainerManager).Container));
         }
@@ -154,6 +154,14 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             private set;
         }
         public ITypeFinder TypeFinder { get; private set; }
+        #endregion
+
+
+        #region InjectProperties
+        public void InjectProperties(object instance)
+        {
+            this.ContainerManager.InjectProperties(instance);
+        }
         #endregion
     }
 }

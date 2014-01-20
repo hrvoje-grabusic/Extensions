@@ -19,7 +19,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
     /// 有了这个类以后，未来的扩展程序集在注册组件时就不用引用Autofac，对它形成依赖。
     /// </summary>
     public class ContainerManager : IContainerManager
-    {       
+    {
         #region .ctor
         private ContainerBuilder _builder;
         private IContainer _container;
@@ -49,7 +49,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
             {
                 if (_container == null)
                 {
-                    _builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
+                    _builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());                 
                     _container = _builder.Build();
                 }
                 return _container;
@@ -306,6 +306,14 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         public void AddResolvingObserver(IResolvingObserver observer)
         {
             _resolvingObjservers.Add(observer);
+        }
+        #endregion
+
+
+        #region InjectProperties
+        public void InjectProperties(object instance)
+        {
+            _container.InjectProperties(instance);
         }
         #endregion
     }

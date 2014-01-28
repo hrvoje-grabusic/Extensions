@@ -3,12 +3,14 @@ md Release
 md Release\Kooboo.CMS.Toolkit\lib\
 md Release\Kooboo.CMS.Toolkit.Controls\lib\
 md Release\Kooboo.Core\lib\
+md Release\Kooboo.ModuleDevelopment.Binaries\content\
 md packages
 del *.log /Q /S
 
 copy "..\Kooboo.CMS.Toolkit\Kooboo.CMS.Toolkit.nuspec" "..\Publish\Release\Kooboo.CMS.Toolkit\Kooboo.CMS.Toolkit.nuspec"
 copy "..\Kooboo.CMS.Toolkit.Controls\Kooboo.CMS.Toolkit.Controls.nuspec" "..\Publish\Release\Kooboo.CMS.Toolkit.Controls\Kooboo.CMS.Toolkit.Controls.nuspec"
 copy "..\lib\Kooboo.Core.nuspec" "..\Publish\Release\Kooboo.Core\Kooboo.Core.nuspec"
+copy "..\Kooboo.ModuleDevelopment.Binaries\Kooboo.ModuleDevelopment.Binaries.nuspec" "..\Publish\Release\Kooboo.ModuleDevelopment.Binaries\Kooboo.ModuleDevelopment.Binaries.nuspec"
 
 call update_version.vbs
 
@@ -32,6 +34,10 @@ copy "Kooboo.dll" "..\Publish\Release\Kooboo.Core\lib\Kooboo.dll"
 copy "Kooboo.CMS.*.dll" "..\Publish\Release\Kooboo.Core\lib\"
 cd ..
 
+cd Kooboo.ModuleDevelopment.Binaries
+xcopy content\*.* ..\Publish\Release\Kooboo.ModuleDevelopment.Binaries\content\*.* /S /E /Y /H
+cd ..
+
 cd Publish
 
 nuget pack Release\Kooboo.CMS.Toolkit\Kooboo.CMS.Toolkit.nuspec
@@ -41,6 +47,9 @@ nuget pack Release\Kooboo.CMS.Toolkit.Controls\Kooboo.CMS.Toolkit.Controls.nuspe
 nuget setApiKey 12487df2-6ae4-449f-a648-4237aba653b6
 
 nuget pack Release\Kooboo.Core\Kooboo.Core.nuspec
+nuget setApiKey 12487df2-6ae4-449f-a648-4237aba653b6
+
+nuget pack Release\Kooboo.ModuleDevelopment.Binaries\Kooboo.ModuleDevelopment.Binaries.nuspec
 nuget setApiKey 12487df2-6ae4-449f-a648-4237aba653b6
 
 move *.nupkg packages\

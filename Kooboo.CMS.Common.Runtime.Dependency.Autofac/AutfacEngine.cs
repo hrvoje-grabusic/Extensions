@@ -21,7 +21,7 @@ namespace Kooboo.CMS.Common.Runtime.Dependency.Autofac
         #region Ctor
 
         public AutofacEngine()
-            : this(new WebAppTypeFinder() { AssemblySkipLoadingPattern = "Kooboo," })
+            : this(new WebAppTypeFinder())
         {
 
         }

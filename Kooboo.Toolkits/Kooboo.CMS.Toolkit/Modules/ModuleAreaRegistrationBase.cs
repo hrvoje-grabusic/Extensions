@@ -17,11 +17,11 @@ namespace Kooboo.CMS.Toolkit.Modules
         public override void RegisterArea(AreaRegistrationContext context)
         {
             // Register module menu
-            string menuFilePath = AreaHelpers.CombineAreaFilePhysicalPath(AreaName, "Menu.config");
+            string menuFilePath = AreaHelpers.CombineAreaFilePhysicalPath(AreaName, "CMSMenu.config");
             MenuFactory.RegisterAreaMenu(AreaName, menuFilePath);
 
             // Register module web resources
-            string webResourcesFilePath = Path.Combine(Settings.BaseDirectory, "Areas", AreaName, "WebResources.config");
+            string webResourcesFilePath = AreaHelpers.CombineAreaFilePhysicalPath(AreaName, "WebResources.config");
             ConfigurationManager.RegisterSection(AreaName, webResourcesFilePath);
         }
     }

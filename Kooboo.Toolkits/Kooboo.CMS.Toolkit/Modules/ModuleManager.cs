@@ -27,7 +27,7 @@ namespace Kooboo.CMS.Toolkit.Modules
         [Obsolete("Method Removed in Kooboo CMS 4.3+")]
         public void Uninstall(string moduleName)
         {
-            ModuleInitializers.UnInstall(moduleName);
+            //ModuleInitializers.UnInstall(moduleName);
         }
     }
 }

@@ -15,7 +15,7 @@
     <language />
     <tags>Kooboo CMS Toolkit Schema Controls</tags>
     <dependencies>
-        <dependency id="Kooboo.Core" version="4.2.1.1128" />
+        <dependency id="Kooboo.Core" version="4.3.0.109" />
     </dependencies>
   </metadata>
 </package>

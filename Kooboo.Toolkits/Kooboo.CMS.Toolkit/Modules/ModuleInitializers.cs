@@ -32,9 +32,9 @@ namespace Kooboo.CMS.Toolkit.Modules
             Initializers.Each(it => it.Exclude(moduleName, siteName));
         }
 
-        public static void UnInstall(string moduleName)
-        {
-            Initializers.Each(it => it.UnInstall(moduleName));
-        }
+        //public static void UnInstall(string moduleName)
+        //{
+        //    Initializers.Each(it => it.UnInstall(moduleName));
+        //}
     }
 }

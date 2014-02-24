@@ -31,7 +31,7 @@ cd ..
 
 cd lib 
 copy "Kooboo.dll" "..\Publish\Release\Kooboo.Core\lib\Kooboo.dll"
-copy "Kooboo.CMS.*.dll" "..\Publish\Release\Kooboo.Core\lib\"
+copy "Kooboo.*.dll" "..\Publish\Release\Kooboo.Core\lib\"
 cd ..
 
 cd Kooboo.ModuleDevelopment.Binaries

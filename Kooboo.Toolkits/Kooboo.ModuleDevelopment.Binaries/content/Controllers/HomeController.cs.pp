@@ -10,7 +10,7 @@ namespace $RootNamespace$.Controllers
     {
         public ActionResult Index()
         {
-            return new EmptyResult();
+            return View();
         }
     }
 }

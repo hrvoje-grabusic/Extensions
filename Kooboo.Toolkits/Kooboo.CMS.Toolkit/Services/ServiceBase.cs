@@ -236,6 +236,7 @@ namespace Kooboo.CMS.Toolkit.Services
         /// <returns></returns>
         public IEnumerable<TEntity> GetAll(bool includeDrafts, string orderField, OrderDirection orderDirection)
         {
+
             var query = CreateQuery().WhereEquals(SystemFieldNames.ParentUUID, null);
             if (!includeDrafts)
             {

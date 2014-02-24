@@ -14,7 +14,7 @@
 How to Use:
 Create an empty ClassLibrary and then install this package.</description>
     <dependencies>
-      <dependency id="Kooboo.CMS.Toolkit" version="4.2.1.1128" />
+      <dependency id="Kooboo.CMS.Toolkit" version="4.3.5.128" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Web" targetFramework="" />

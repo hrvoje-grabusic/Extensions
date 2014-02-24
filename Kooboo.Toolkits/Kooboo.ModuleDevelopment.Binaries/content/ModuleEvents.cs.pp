@@ -14,22 +14,23 @@ using System.Text;
 using System.Web.Mvc;
 using Kooboo.CMS.Sites.Extension;
 using Kooboo.CMS.Sites.Models;
+using Kooboo.CMS.Sites.Extension.ModuleArea.Management;
 
 namespace $RootNamespace$
 {
     [Kooboo.CMS.Common.Runtime.Dependency.Dependency(typeof(IModuleEvents), Key = ModuleAreaRegistration.ModuleName)]
     public class ModuleEvents : IModuleEvents
     {
-        public void OnInstalling(ModuleContext moduleContext, ControllerContext controllerContext)
+         public void OnInstalling(ModuleContext moduleContext, ControllerContext controllerContext)
         {
-            // Add code here that will be executed when the module installing.
+            //Add code here that will be executed when the module installing.
             // Installing UI template is defined in the module.config
         }
 
         public void OnUninstalling(ModuleContext moduleContext, ControllerContext controllerContext)
         {
             // Add code here that will be executed when the module uninstalling.
-            // To use custom UI during uninstalling, define the view location in the module.config
+            // To use custom UI during uninstalling, define the view location in the module.config     
         }
 
         public void OnExcluded(ModuleContext moduleContext)
@@ -42,7 +43,7 @@ namespace $RootNamespace$
             // Add code here that will be executed when the module was included to the site.
         }
 
-        public void OnReinstalling(ModuleContext moduleContext, ControllerContext controllerContext, CMS.Sites.Extension.ModuleArea.Management.InstallationContext installationContext)
+        public void OnReinstalling(ModuleContext moduleContext, ControllerContext controllerContext, InstallationContext installationContext)
         {
             // Add code here that will be executed when the module was including to the site.
         }

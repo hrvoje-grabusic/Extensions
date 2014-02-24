@@ -16,7 +16,7 @@ namespace $RootNamespace$
 {
     public class ModuleAreaRegistration : AreaRegistration
     {
-        public const string ModuleName = "Empty";
+        public const string ModuleName = "$RootNamespace$";
         public override string AreaName
         {
             get
@@ -42,7 +42,7 @@ namespace $RootNamespace$
                 {
                     Kooboo.Web.Mvc.Menu.MenuFactory.RegisterAreaMenu(AreaName, menuFile);
                 }
-                var resourceFile = Path.Combine(Settings.BaseDirectory, "Areas", AreaName, "WebResources.config");
+                var resourceFile = AreaHelpers.CombineAreaFilePhysicalPath(AreaName, "WebResources.config");
                 if (File.Exists(resourceFile))
                 {
                     Kooboo.Web.Mvc.WebResourceLoader.ConfigurationManager.RegisterSection(AreaName, resourceFile);

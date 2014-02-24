@@ -97,27 +97,28 @@ namespace Kooboo.CMS.Toolkit
         [Obsolete("Not support in Kooboo 4,this method is same with  public static IContentQuery<TextContent> DefaultOrder(this IContentQuery<TextContent> contentQuery)")]
         public static IContentQuery<TextContent> DefaultOrder(this IContentQuery<TextContent> textContents, TextFolder textFolder)
         {
-            if (textContents is TextContentQueryBase)
-            {
-                string orderField = SystemFieldNames.UtcCreationDate;
-                OrderDirection orderDirection = OrderDirection.Descending;
+            //if (textContents is TextContentQueryBase)
+            //{
+            //    string orderField = SystemFieldNames.UtcCreationDate;
+            //    OrderDirection orderDirection = OrderDirection.Descending;
 
-                if (textFolder.Sortable.HasValue && textFolder.Sortable.Value)
-                {
-                    orderField = "Sequence";
-                    orderDirection = OrderDirection.Descending;
-                }
+            //    if (textFolder.Sortable.HasValue && textFolder.Sortable.Value)
+            //    {
+            //        orderField = "Sequence";
+            //        orderDirection = OrderDirection.Descending;
+            //    }
 
-                if (orderDirection == OrderDirection.Ascending)
-                {
-                    return textContents.OrderBy(orderField);
-                }
-                else
-                {
-                    return textContents.OrderByDescending(orderField);
-                }
-            }
-            return textContents;
+            //    if (orderDirection == OrderDirection.Ascending)
+            //    {
+            //        return textContents.OrderBy(orderField);
+            //    }
+            //    else
+            //    {
+            //        return textContents.OrderByDescending(orderField);
+            //    }
+            //}
+            //return textContents;
+            throw new NotImplementedException("Not support in Kooboo 4");
         }
 
         public static IContentQuery<TextContent> DefaultOrder(this IContentQuery<TextContent> textContents, string orderField, OrderDirection orderDirection = OrderDirection.Descending)

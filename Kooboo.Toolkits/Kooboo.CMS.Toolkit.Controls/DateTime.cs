@@ -75,7 +75,8 @@ namespace Kooboo.CMS.Toolkit.Controls
         protected override string RenderInput(Kooboo.CMS.Form.IColumn column)
         {
             var sb = new StringBuilder();
-            var input = string.Format("<input id=\"{0}\" name=\"{0}\" readonly=\"readonly\" type=\"{1}\" value=\"@(Model.{0} ==null ? \"\" : Model.{0}.ToLocalTime().ToString())\" {2}/>", column.Name, this.Type, ValidationExtensions.GetUnobtrusiveValidationAttributeString(column));
+            var input = string.Format("<input id=\"{0}\" name=\"{0}\"{3} type=\"{1}\" value=\"@(Model.{0} ==null ? \"\" : Model.{0}.ToLocalTime().ToString())\" {2}/>", column.Name, this.Type,
+                ValidationExtensions.GetUnobtrusiveValidationAttributeString(column), column.AllowNull ? "" : " readonly=\"readonly\"");
            
             sb.Append(@"@if ((bool?)ViewContext.Controller.ViewData[""WebResourceUrl.Rendered""] != true)
             {

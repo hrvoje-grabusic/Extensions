@@ -173,6 +173,12 @@ namespace Kooboo.CMS.Content.UserKeyGenerator.Chinese
                     tempString += mChar[j];
                 }
             }
+            //if UserKey not ends with Chinese
+            if (!string.IsNullOrEmpty(tempString))
+            {
+                result.Add(tempString);
+                tempString = string.Empty;
+            }
             return string.Join(separator ?? "", result);
         }
     }

@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{9F95DE9C-DBD1-4133-BB9B-401C69A4D92B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kooboo.Modules.SchemaSyncDatabase.SqlServer", "Kooboo.Modules.ContentImport.SqlServer\Kooboo.Modules.SchemaSyncDatabase.SqlServer.csproj", "{2678F690-0BDA-4111-8650-D102E03D7748}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kooboo.Modules.SchemaSyncDatabase.SqlServer", "Kooboo.Modules.SchemaSyncDatabase.SqlServer\Kooboo.Modules.SchemaSyncDatabase.SqlServer.csproj", "{2678F690-0BDA-4111-8650-D102E03D7748}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

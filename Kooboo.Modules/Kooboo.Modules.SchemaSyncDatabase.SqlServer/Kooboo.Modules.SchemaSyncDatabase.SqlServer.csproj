@@ -122,6 +122,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CMSAssemblyInfoGlobal.cs">
+      <Link>CMSAssemblyInfoGlobal.cs</Link>
+    </Compile>
     <Compile Include="AreaRegistration.cs" />
     <Compile Include="Controllers\SchemasController.cs" />
     <Compile Include="DatabaseProvider\GetSchemaProviderSqlServer.cs" />

@@ -146,7 +146,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kooboo.Modules.ContentImport.SqlServer\Kooboo.Modules.SchemaSyncDatabase.SqlServer.csproj">
+    <ProjectReference Include="..\Kooboo.Modules.SchemaSyncDatabase.SqlServer\Kooboo.Modules.SchemaSyncDatabase.SqlServer.csproj">
       <Project>{2678f690-0bda-4111-8650-d102e03d7748}</Project>
       <Name>Kooboo.Modules.SchemaSyncDatabase.SqlServer</Name>
     </ProjectReference>

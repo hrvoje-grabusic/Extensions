@@ -12,6 +12,11 @@
     }
 
     div.ui-timepicker-div a.ui-slider-handle {
+        -moz-transition: none;
+        -webkit-transition: none;
+        -o-transition: color 0 ease-in;
+        transition: none;
+        cursor:pointer;
         background-color: #0078B1;
     }
 

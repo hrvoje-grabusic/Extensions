@@ -17,7 +17,7 @@ see a demonstration project here:[https://github.com/Tsingbo-Kooboo/KoobooToolki
 PM> Install-Package Kooboo.CMS.Content.UserKeyGenerator.Chinese
 >```
 >#####Web server：
->click [here](doc/asset/lib/Kooboo.CMS.Toolkit.dll "Kooboo.CMS.Toolkit.dll") to download the dll,and copy it to bin folder.
+>click [here](http://tsingbo-kooboo.github.io/Cms_Data/Sites/Kooboo/Files/packages/Kooboo.CMS.Toolkit.dll "Kooboo.CMS.Toolkit.dll") to download the dll,and copy it to bin folder.
 >
 
 Kooboo.CMS.Toolkit.Controls
@@ -43,7 +43,7 @@ Kooboo.CMS.Content.UserKeyGenerator.Chinese
 PM> Install-Package Kooboo.CMS.Content.UserKeyGenerator.Chinese
 >```
 >#####服务器：
->点击[这里](doc/asset/lib/Kooboo.CMS.Content.UserKeyGenerator.Chinese.dll "Kooboo.CMS.Content.UserKeyGenerator.Chinese.dll")下载编译完的dll，将其拷贝到bin目录下即可。
+>点击[这里](http://tsingbo-kooboo.github.io/Cms_Data/Sites/Kooboo/Files/packages/Kooboo.CMS.Content.UserKeyGenerator.Chinese.dll "Kooboo.CMS.Content.UserKeyGenerator.Chinese.dll")下载编译完的dll，将其拷贝到bin目录下即可。
 >
 
 ![Kooboo_CMS_Content_UserKeyGenerator_Chinese](doc/asset/image/Kooboo_CMS_Content_UserKeyGenerator_Chinese.gif)

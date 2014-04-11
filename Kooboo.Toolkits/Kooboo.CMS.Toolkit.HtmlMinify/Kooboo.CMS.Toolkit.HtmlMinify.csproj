@@ -1,16 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{811F5AB8-B9B7-4EA4-B4EA-9DC4510C0B47}</ProjectGuid>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A9FB002-F04E-4811-8A6F-B226AAB769CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Kooboo.CMS.Content.UserKeyGenerator.Chinese</RootNamespace>
-    <AssemblyName>Kooboo.CMS.Content.UserKeyGenerator.Chinese</AssemblyName>
+    <RootNamespace>Kooboo.CMS.Toolkit.HtmlMinify</RootNamespace>
+    <AssemblyName>Kooboo.CMS.Toolkit.HtmlMinify</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -78,6 +80,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Kooboo.Core.4.4.0.0411\lib\Kooboo.CMS.Web.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -116,9 +119,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyRegistrer.cs" />
-    <Compile Include="PinyinConverter.cs" />
-    <Compile Include="UserKeyGenerator.cs" />
+    <Compile Include="AssemblyInitializer.cs" />
+    <Compile Include="HtmlCompressActionFilterAttribute.cs" />
+    <Compile Include="HtmlCompressorTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SimpleHtmlCompressor.cs" />
+    <Compile Include="HtmlCompressor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

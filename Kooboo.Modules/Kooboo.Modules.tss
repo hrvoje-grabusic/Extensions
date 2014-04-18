@@ -1,2 +1,17 @@
 <?xml version="1.0"?>
-<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>E:\GitHub\Kooboo\CMS_Extensions\Kooboo.Modules\Web\Cms_Data\Sites\SampleSite\Templates\Views\Contactus\template.cshtml</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>e:\github\kooboo\cms_extensions\kooboo.modules\web\cms_data\views\shared\editortemplates\fronttinymce.cshtml</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\GitHub\Kooboo\CMS_Extensions\Kooboo.Modules\Kooboo.Modules.SchemaSyncDatabase.SqlServer\Toolbars\ResetDatabaseProvider.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\GitHub\Kooboo\CMS_Extensions\Kooboo.Modules\Kooboo.Modules.SchemaSyncDatabase.SqlServer\Controllers\SchemasController.cs</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>

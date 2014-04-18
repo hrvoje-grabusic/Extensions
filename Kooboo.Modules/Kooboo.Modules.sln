@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kooboo.Modules.SchemaSyncDatabase.SqlServer", "Kooboo.Modules.SchemaSyncDatabase.SqlServer\Kooboo.Modules.SchemaSyncDatabase.SqlServer.csproj", "{2678F690-0BDA-4111-8650-D102E03D7748}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kooboo.Modules.XLIFF", "Kooboo.Modules.XLIFF\Kooboo.Modules.XLIFF.csproj", "{39EF5F0C-3227-436B-8CD8-BD79E7B91069}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2678F690-0BDA-4111-8650-D102E03D7748}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2678F690-0BDA-4111-8650-D102E03D7748}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2678F690-0BDA-4111-8650-D102E03D7748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39EF5F0C-3227-436B-8CD8-BD79E7B91069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39EF5F0C-3227-436B-8CD8-BD79E7B91069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39EF5F0C-3227-436B-8CD8-BD79E7B91069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39EF5F0C-3227-436B-8CD8-BD79E7B91069}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

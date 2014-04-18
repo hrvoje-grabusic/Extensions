@@ -150,6 +150,13 @@
       <Project>{2678f690-0bda-4111-8650-d102e03d7748}</Project>
       <Name>Kooboo.Modules.SchemaSyncDatabase.SqlServer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Kooboo.Modules.XLIFF\Kooboo.Modules.XLIFF.csproj">
+      <Project>{39ef5f0c-3227-436b-8cd8-bd79e7b91069}</Project>
+      <Name>Kooboo.Modules.XLIFF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cms_Data\Views\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

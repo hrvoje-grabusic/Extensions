@@ -105,6 +105,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CMSAssemblyInfoGlobal.cs">
+      <Link>CMSAssemblyInfoGlobal.cs</Link>
+    </Compile>
     <Compile Include="AreaRegistration.cs" />
     <Compile Include="Models\TextContentImportModel.cs" />
     <Compile Include="TextContentToXLIFF.cs" />

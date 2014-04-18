@@ -34,21 +34,11 @@ namespace Kooboo.Modules.XLIFF.UI
             return new ToolbarButton[]{
                  new ToolbarButton(){
                     GroupName = GroupName,
-                    CommandTarget = new MvcRoute(){ Action="TextContentImport",Controller="TextContent",Area=AreaName,RouteValues=new Dictionary<string,object>(){
+                    CommandTarget = new MvcRoute(){ Action="Import",Controller="TextContent",Area=AreaName,RouteValues=new Dictionary<string,object>(){
                         {"Formatter",GroupName}}
                     },
                     CommandText="Import".Localize()
                 },
-                //new ToolbarButton(){
-                //    GroupName = GroupName,
-                //    CommandTarget = new MvcRoute(){ Action="Export",Controller="TextContent",Area=AreaName,RouteValues=new Dictionary<string,object>(){
-                //        {"Formatter",GroupName}}
-                //    },
-                //    CommandText="Export current folder".Localize(),
-                //    HtmlAttributes = new Dictionary<string,object>(){
-                //        {"data-command-type","Download"}
-                //    }
-                //},
                 new ToolbarButton(){
                     GroupName = GroupName,
                     CommandTarget = new MvcRoute(){ Action="Export",Controller="TextContent",Area=AreaName,RouteValues=new Dictionary<string,object>(){

@@ -13,11 +13,6 @@ namespace Kooboo.Modules.XLIFF.Models
         [DisplayName("Data format")]
         public string Formatter { get; set; }
 
-        //[Required(ErrorMessage = "Required")]
-        ////[RegularExpression(".+\\.(zip)$", ErrorMessage = "Required a zip file.")]
-        //[UIHint("File")]
-        ////[Description("choose a .xlf file")]
-        //public virtual HttpPostedFileWrapper File { get; set; }
         [Required(ErrorMessage = "Required")]
         [UIHint("File")]
         [Description("choose a .xlf file")]

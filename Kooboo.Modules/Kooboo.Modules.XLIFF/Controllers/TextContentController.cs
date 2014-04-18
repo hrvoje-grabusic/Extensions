@@ -16,13 +16,13 @@ namespace Kooboo.Modules.XLIFF.Controllers
     public class TextContentController : ContentControllerBase
     {
         #region Import
-        public virtual ActionResult TextContentImport(TextContentImportModel model)
+        public virtual ActionResult Import(TextContentImportModel model)
         {
             ModelState.Clear();
-            return View(model);
+            return View("TextContentImport", model);
         }
         [HttpPost]
-        public virtual ActionResult TextContentImport(TextContentImportModel model, string @return)
+        public virtual ActionResult Import(TextContentImportModel model, string @return)
         {
             var data = new JsonResultData(ModelState);
             data.RunWithTry((resultData) =>
@@ -37,7 +37,7 @@ namespace Kooboo.Modules.XLIFF.Controllers
         #region Export
         public virtual void Export(string Formatter, string folderName, string[] docs)
         {
-            var exporter = Kooboo.CMS.Common.Runtime.EngineContext.Current.Resolve<ITextContentFormater>((Formatter??""));
+            var exporter = Kooboo.CMS.Common.Runtime.EngineContext.Current.Resolve<ITextContentFormater>((Formatter ?? ""));
             var fileName = folderName + exporter.FileExtension;
             Response.AttachmentHeader(fileName);
 

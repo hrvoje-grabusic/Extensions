@@ -73,7 +73,6 @@ namespace Kooboo.CMS.Synchronous
                         IRepositoryProvider repositoryProvider = EngineContext.Current.Resolve<IRepositoryProvider>();
 
                         SiteManagerWrapper siteManagerWrapper = new SiteManagerWrapper(siteProvider, repositoryProvider);
-                        Kooboo.CMS.Sites.Services.ServiceFactory.SiteManager = siteManagerWrapper;
                         return siteManagerWrapper;
                     }
                 }

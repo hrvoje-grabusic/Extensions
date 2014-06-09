@@ -11,6 +11,7 @@ namespace Kooboo.CMS.Content.UserKeyGenerator.Chinese
         {
         }
 
+        #region --- Private ---
         //Pinyin code
         private static int[] getValue = new int[]{
             -20319,-20317,-20304,-20295,-20292,-20283,-20265,-20257,-20242,-20230,-20051,-20036,
@@ -84,6 +85,7 @@ namespace Kooboo.CMS.Content.UserKeyGenerator.Chinese
             "Zhang","Zhao","Zhe","Zhen","Zheng","Zhi","Zhong","Zhou","Zhu","Zhua","Zhuai","Zhuan",
             "Zhuang","Zhui","Zhun","Zhuo","Zi","Zong","Zou","Zu","Zuan","Zui","Zun","Zuo"
         };
+        #endregion
 
         /// <summary>
         /// Convert Chinese characters to Pinyin

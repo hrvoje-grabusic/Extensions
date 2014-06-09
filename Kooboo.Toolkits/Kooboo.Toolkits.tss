@@ -1,2 +1,15 @@
 <?xml version="1.0"?>
-<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ArrayOfArrayOfString>
+    <ArrayOfString>
+      <string>E:\GitHub\Kooboo\CMS_Extensions\Kooboo.Toolkits\Kooboo.CMS.Content.DatabaseMigration\MainWindow.xaml</string>
+      <string>e:\github\kooboo\cms_extensions\kooboo.toolkits\kooboo.cms.content.databasemigration\mainwindow.xaml.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\GitHub\Kooboo\CMS_Extensions\Kooboo.Toolkits\Kooboo.CMS.Toolkit\Services\ServiceBase.cs</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>E:\GitHub\Kooboo\CMS_Extensions\Kooboo.Toolkits\Kooboo.CMS.Toolkit\Common\Extensions\TextContentExtensions.cs</string>
+    </ArrayOfString>
+  </ArrayOfArrayOfString>
+</ArrayOfArrayOfArrayOfString>

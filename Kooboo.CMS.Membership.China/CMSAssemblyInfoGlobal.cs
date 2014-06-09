@@ -11,5 +11,5 @@ using System.Reflection;
 [assembly: AssemblyCopyright("Copyright ©  2014 Kooboo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("4.3.5.0128")]
-[assembly: AssemblyFileVersion("4.3.5.0128")]
+[assembly: AssemblyVersion("4.4.0.0320")]
+[assembly: AssemblyFileVersion("4.4.0.0320")]

@@ -140,7 +140,7 @@
             closeText: 'Done',
             amNames: ['AM', 'A'],
             pmNames: ['PM', 'P'],
-            timeFormat: 'HH:mm',
+            timeFormat: 'H:mm',
             timeSuffix: '',
             timeOnlyTitle: 'Choose Time',
             timeText: 'Time',

@@ -93,7 +93,7 @@ namespace Kooboo.CMS.Toolkit.Controls
                     $(function() {{
                         $('input[name=""{0}""]').datetimepicker({{
                             showSecond: true,
-                            timeFormat: 'HH:mm:ss',
+                            timeFormat: 'H:mm:ss',
                             changeMonth: true,
                             changeYear: true,
                         }});
